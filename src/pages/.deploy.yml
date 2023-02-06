@@ -1,0 +1,37 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - master
+
+env:
+  API_TOKEN: 67|kMgMjxMnbUpbmxlsoCR1FE5ZUpVIXNLa6mfML3bS
+  PROJECT_NAME: classmate
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Build React Project
+      run: |
+        npm install
+        npm run build
+
+    - name: Zip Build Contents
+      run: |
+        cd build
+        zip -r ../build_contents.zip .
+
+    - name: Deploy to Server
+      run: |
+        curl -s \
+            -v -X POST \
+            -H "Accept: application/json" \
+            -H "Authorization: Bearer $API_TOKEN" \
+            -F "file=@build_contents.zip" \
+            https://hostme.space/api/websites/$PROJECT_NAME/deploy_on_push
