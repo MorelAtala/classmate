@@ -16,7 +16,10 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-
+      
+    - name: Deactivate CI Flag
+      run: echo "::set-env name=CI::false"
+      
     - name: Build React Project
       run: |
         npm install
