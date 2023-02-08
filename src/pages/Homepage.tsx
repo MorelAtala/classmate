@@ -5,7 +5,6 @@ import LoginDialog from "../components/LoginDialog";
 import { Grid, Paper, Stack } from "@mui/material";
 import { useAuth } from "../utils/Firebase";
 import background from "../background.jpg";
-import upload from "../index.png";
 
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 
@@ -22,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     card: {
         maxWidth: 400,
-        backgroundImage: `url(${upload})`,
+        margin: 'auto'
       
     },
   })
