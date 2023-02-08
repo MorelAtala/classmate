@@ -67,7 +67,7 @@ const QrCodeScanner: React.FC = () => {
       </ReactResizeDetector>
       <Box pt={4} pb={2}>
         <Typography align="center" variant="h5">
-          Scan your Classmate's QR Code to receive the Notes
+          Scan your Classmate's QR Code to share the Notes
         </Typography>
       </Box>
       <Box display="flex" justifyContent="center" mb={2}>
@@ -79,7 +79,7 @@ const QrCodeScanner: React.FC = () => {
            // setFiles([]);
           }}
         >
-          Share more notes
+          Share more Notes
         </Button>
       </Box>
     </Container>

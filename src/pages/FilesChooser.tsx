@@ -34,7 +34,7 @@ const FilesChooser = () => {
     <Container maxWidth="sm" className={classes.container}>
       <Box pb={2}>
         <Typography align="center" variant="h5">
-          Choose files to share
+          Choose The Notes to share
         </Typography>
       </Box>
 

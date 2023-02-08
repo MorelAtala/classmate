@@ -57,6 +57,7 @@ const classes = useStyles();
           spacing={2}
           justifyContent="center"
         >
+            
            {auth?.isAnonymous && (
                 <Button variant="contained"
                   onClick={() => setLoginDialogOpen(true)}

@@ -58,7 +58,7 @@ const Inbox: React.FC = () => {
   return (
     <Container maxWidth="sm" className={classes.container}>
       <List
-        subheader={<ListSubheader component="div">Shares</ListSubheader>}
+        subheader={<ListSubheader component="div">Notes</ListSubheader>}
         className={classes.list}
       >
         {buckets.map(({ id, files, name, status }) => (
