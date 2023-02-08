@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const QrCodeShower = () => {
+  const QrCodeShower = () => {
   const navigate = useNavigate();
   const classes = useStyles();
   const { buckets } = useAppState();
@@ -39,7 +39,7 @@ const QrCodeShower = () => {
       <MyQrCode />
       <Box pt={4} pb={2}>
         <Typography align="center" variant="h5">
-          Ask you friend to scan this QR Code to share files
+          Ask you Classmate to scan this QR Code to receive your Notes
         </Typography>
       </Box>
       <Box display="flex" justifyContent="center" pb={2}>

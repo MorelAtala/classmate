@@ -40,7 +40,7 @@ const Share: React.FC = () => {
   const doShare = async () => {
     const ua = new UAParser();
     const ref = await Database.ref("content")
-      .child(receiverId)
+      .child(receiverId.toString())
       .push({
         status: "sharing",
         name: `${ua.getDevice().model ?? "Device"} (${
@@ -65,7 +65,7 @@ const Share: React.FC = () => {
     setStatus("done");
     setFiles([]);
     setReceiverId("");
-    setTimeout(() => navigate("/"), 500);
+    setTimeout(() => navigate("/fileschooser"), 500);
   };
 
   useEffect(() => {

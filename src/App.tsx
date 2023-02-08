@@ -1,59 +1,23 @@
-import React, { useEffect, useState } from "react";
-import Button from "@material-ui/core/Button";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import { Route, BrowserRouter, Routes, Link } from "react-router-dom";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { useEffect, useState } from "react";
+import { Route, BrowserRouter, Routes } from "react-router-dom";
 import FilesChooser from "./pages/FilesChooser";
 import QrCodeScanner from "./pages/QrCodeScanner";
 import QrCodeShower from "./pages/QrCodeShower";
 import { AppStateContext } from "./store";
 import Inbox from "./pages/Inbox";
-import SendIcon from "@material-ui/icons/Send";
-import CallReceivedIcon from "@material-ui/icons/CallReceived";
-import { Auth, Database } from "./config/Firebase";
+import { Database } from "./config/Firebase";
 import Bucket from "./types/Bucket";
-import Share from "./pages/Share";
-import Drawer from "@material-ui/core/Drawer";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import MenuIcon from "@material-ui/icons/Menu";
-import CropFreeIcon from "@material-ui/icons/CropFree";
-import InboxIcon from "@material-ui/icons/Inbox";
-//import LoginDialog from "./components/LoginDialog";
 import { useAuth } from "./utils/Firebase";
 import PrintMyCode from "./pages/PrintMyCode";
+import Homepage from "./pages/Homepage";
+import Layout from "./components/Layout";
+import Share from "./pages/Share";
 
-
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        root: {
-            height: "calc(100vh - 64px)",
-        },
-        icon: {
-            marginRight: theme.spacing(2),
-        },
-        title: {
-            flexGrow: 1,
-        },
-    })
-);
 
 function App() {
-    const classes = useStyles();
-
-    const [drawerOpen, setDrawerOpen] = useState(false);
-    const [loginDialogOpen, setLoginDialogOpen] = useState(false);
-
     const [receiverId, setReceiverId] = useState<string>("");
     const [files, setFiles] = useState<File[]>([]);
-
     const [buckets, setBuckets] = useState<Bucket[]>([]);
-
     const auth = useAuth();
 
     useEffect(() => {
@@ -91,100 +55,19 @@ function App() {
                     receiverId,
                     setReceiverId: (id) => setReceiverId(id),
                     buckets,
+                    setBuckets: (buckets) => setBuckets(buckets),
                 }}
             >
-                <div className={classes.root}>
-                    <AppBar position="static" classes={{ positionStatic: "no-print" }}>
-                        <Toolbar>
-                            <IconButton
-                                edge="start"
-                                color="inherit"
-                                aria-label="icon"
-                                className={classes.icon}
-                                onClick={() => setDrawerOpen(true)}
-                            >
-                                <MenuIcon />
-                            </IconButton>
-                            <Typography variant="h6" className={classes.title}>
-                                Classmate
-                            </Typography>
-                            {auth?.isAnonymous && (
-                                <Button
-                                    onClick={() => setLoginDialogOpen(true)}
-                                    color="inherit"
-                                >
-                                    Login
-                                </Button>
-                            )}
-                            {!auth?.isAnonymous && (
-                                <Button
-                                    onClick={() => Auth.signInAnonymously()}
-                                    color="inherit"
-                                >
-                                    Logout
-                                </Button>
-                            )}
-                        </Toolbar>
-                    </AppBar>
-                    <Drawer
-                        anchor="left"
-                        open={drawerOpen}
-                        onClose={() => setDrawerOpen(false)}
-                    >
-                        <List style={{ width: 250 }}>
-                            {[
-                                {
-                                    shouldRender: true,
-                                    icon: InboxIcon,
-                                    title: "Inbox",
-                                    path: "/inbox",
-                                },
-                                {
-                                    shouldRender: true,
-                                    icon: SendIcon,
-                                    title: "Share",
-                                    path: "/",
-                                },
-                                {
-                                    shouldRender: true,
-                                    icon: CallReceivedIcon,
-                                    title: "Receive",
-                                    path: "/receive",
-                                },
-                                {
-                                    shouldRender: !auth?.isAnonymous,
-                                    icon: CropFreeIcon,
-                                    title: "Print My Code",
-                                    path: "/print-code",
-                                },
-                            ]
-                                .filter((option) => option.shouldRender)
-                                .map(({ title, icon: Icon, path }) => (
-                                    <ListItem
-                                        key={title}
-                                        button
-                                        onClick={() => setDrawerOpen(false)}
-                                        component={Link}
-                                        to={path}
-                                    >
-                                        <ListItemIcon>
-                                            <Icon />
-                                        </ListItemIcon>
-                                        <ListItemText primary={title} />
-                                    </ListItem>
-                                ))}
-                        </List>
-                    </Drawer>
-                    <Routes>
-                        <Route element={<Share />} path="/sharing"/>
-                        <Route element={<Inbox/>} path="/inbox"/>
-                        <Route element={<QrCodeScanner/>} path="/share"/>
-                        <Route element={<QrCodeShower/>} path="/receive"/>
-                        <Route element={<PrintMyCode/>} path="/print-code"/>
-                        <Route element={<FilesChooser/>} path="/"/>
-                    </Routes>
-                   
-                </div>
+                <Routes>
+                    <Route element={<Layout><Share /></Layout>} path="/sharing" />
+                    <Route element={<Layout><Inbox /></Layout>} path="/inbox" />
+                    <Route element={<Layout><QrCodeScanner /></Layout>} path="/share" />
+                    <Route element={<Layout><QrCodeShower /></Layout>} path="/receive" />
+                    <Route element={<Layout><PrintMyCode /></Layout>} path="/print-code" />
+                    <Route element={<Layout><FilesChooser /></Layout>} path="/fileschooser" />
+                    <Route element={<Homepage />} path="/" />
+                </Routes>
+
             </AppStateContext.Provider>
         </BrowserRouter>
     );

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import List from "@material-ui/core/List";
@@ -8,7 +8,6 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
-import PrintIcon from "@material-ui/icons/Print";
 import PictureAsPdfIcon from "@material-ui/icons/PictureAsPdf";
 import ImageIcon from "@material-ui/icons/Image";
 import Collapse from "@material-ui/core/Collapse";
@@ -18,13 +17,7 @@ import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
 import FolderIcon from "@material-ui/icons/Folder";
 import InsertDriveFileIcon from "@material-ui/icons/InsertDriveFile";
 import { useAppState } from "../store";
-import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import LinearProgress from "@material-ui/core/LinearProgress";
-import DialogActions from "@material-ui/core/DialogActions";
-import Button from "@material-ui/core/Button";
-import { isImageFile, isPdfFile, isPrintable, print } from "../config/Print";
+import { isImageFile, isPdfFile } from "../config/Print";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -55,18 +48,13 @@ const Inbox: React.FC = () => {
   const { buckets } = useAppState();
   const classes = useStyles();
   const [open, setOpen] = useState<any>({});
-  const [progress, setProgress] = useState<boolean>(false);
+ 
 
-  const handleProgressClose = useCallback(() => {
-    setProgress(false);
-  }, []);
 
-  const handlePrint = useCallback(async (fileUrl: string) => {
-    setProgress(true);
-    await print(fileUrl);
-    setProgress(false);
-  }, []);
 
+  useEffect(() => {
+    console.log({buckets});
+  }, [buckets])
   return (
     <Container maxWidth="sm" className={classes.container}>
       <List
@@ -101,16 +89,7 @@ const Inbox: React.FC = () => {
                       </ListItemIcon>
                       <ListItemText primary={file.name} />
                       <ListItemSecondaryAction>
-                        {isPrintable(file.name) && (
-                          <IconButton
-                            edge="end"
-                            aria-label="print"
-                            title="Print"
-                            onClick={() => handlePrint(file.url)}
-                          >
-                            <PrintIcon />
-                          </IconButton>
-                        )}
+                    
                         <IconButton
                           className="download-link"
                           edge="end"
@@ -130,17 +109,7 @@ const Inbox: React.FC = () => {
           </React.Fragment>
         ))}
       </List>
-      <Dialog open={progress} onClose={handleProgressClose}>
-        <DialogTitle>Printing...</DialogTitle>
-        <DialogContent style={{ width: 300 }}>
-          <LinearProgress />
-        </DialogContent>
-        <DialogActions>
-          <Button variant="text" onClick={handleProgressClose} color="primary">
-            Cancel
-          </Button>
-        </DialogActions>
-      </Dialog>
+   
     </Container>
   );
 };

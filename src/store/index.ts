@@ -7,6 +7,7 @@ export interface AppState {
   receiverId: string;
   setReceiverId: (id: string) => void;
   buckets: Bucket[];
+  setBuckets: (buckets: Bucket[]) => void;
 }
 
 export const AppStateContext = React.createContext<AppState | null>(null);

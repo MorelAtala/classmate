@@ -21,23 +21,16 @@ const PrintMyCode = () => {
   const classes = useStyles();
 
   return (
+   
     <Container maxWidth="sm" className={classes.container}>
       <Box id="printable" display="flex" flex={1} flexDirection="column">
         <Box pt={4} pb={2}>
           <Typography align="center" variant="h2">
-            To Share Files
+            To Receive your Notes
           </Typography>
         </Box>
         <MyQrCode />
-        <Box pt={4} pb={2}>
-          <Typography align="center" variant="h4">
-            1. Visit fastshare.netlify.app
-          </Typography>
-          <Box height={8} />
-          <Typography align="center" variant="h4">
-            2. Choose Files and Scan QR Code
-          </Typography>
-        </Box>
+   
       </Box>
 
       <Box display="flex" justifyContent="center" pb={2} className="no-print">
