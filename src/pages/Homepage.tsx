@@ -5,6 +5,8 @@ import LoginDialog from "../components/LoginDialog";
 import { Grid, Paper, Stack } from "@mui/material";
 import { useAuth } from "../utils/Firebase";
 import background from "../background.jpg";
+import upload from "../index.png";
+
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 
 
@@ -17,6 +19,11 @@ const useStyles = makeStyles((theme: Theme) =>
         backgroundRepeat: 'no-repeat',
         width: '100vw',
         height: '100vh'
+    },
+    card: {
+        maxWidth: 400,
+        backgroundImage: `url(${upload})`,
+      
     },
   })
 );
@@ -57,7 +64,7 @@ const classes = useStyles();
           spacing={2}
           justifyContent="center"
         >
-            
+           
            {auth?.isAnonymous && (
                 <Button variant="contained"
                   onClick={() => setLoginDialogOpen(true)}
