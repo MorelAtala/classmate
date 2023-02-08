@@ -1,10 +1,17 @@
-# Getting Started with Create React App
+#Introduction
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Classmate is an application that allows students to share their Notes after class.
+This Application was created with reactjs and typescipt.
+Installation instructions are as follows.
 
-## Available Scripts
 
-In the project directory, you can run:
+# Install node Js on your computer https://nodejs.org/en/download/
+
+## The Full Code of my Project is on Github under:
+
+# Unzip the Compressed Zip File "classmate" (Project File)
+
+In the project directory "classmate", you can run:
 
 ### `npm start`
 
